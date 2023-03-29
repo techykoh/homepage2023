@@ -1,0 +1,36 @@
+package egovframework.let.temp.service;
+
+import java.io.Serializable;
+
+import egovframework.com.cmm.ComDefaultCodeVO;
+
+public class TempVO extends ComDefaultCodeVO implements Serializable{
+	
+	// 임시데이터ID
+	private String tempId;
+	
+	// 임시데이터값
+	private String tempVal;
+
+	
+	// getter, setter 생성 (Alt + Shift + S)
+	public String getTempId() {
+		return tempId;
+	}
+
+	public void setTempId(String tempId) {
+		this.tempId = tempId;
+	}
+
+	public String getTempVal() {
+		return tempVal;
+	}
+
+	public void setTempVal(String tempVal) {
+		this.tempVal = tempVal;
+	}
+	
+	
+	
+	
+}
