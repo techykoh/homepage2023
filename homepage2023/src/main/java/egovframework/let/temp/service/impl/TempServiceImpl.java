@@ -40,4 +40,15 @@ public class TempServiceImpl extends EgovAbstractServiceImpl implements TempServ
 		return null;
 	}
 	
+	// 임시데이터 수정하기
+	public void updateTemp(TempVO vo) throws Exception {
+		tempMapper.updateTemp(vo);
+	}
+	
+	// 임시데이터 삭제하기
+	public void deleteTemp(TempVO vo) throws Exception {
+		tempMapper.deleteTemp(vo);
+	}
+	
+	
 }
