@@ -47,10 +47,10 @@
 			, USER_NM
 			, FRST_REGIST_PNTTM
 		) VALUES (
-			'CRUD_x0001'
-			, '제목'
-			, '내용'
-			, '작성자'
+			#{crudId}
+			, #{crudsj}
+			, #{crudCn}
+			, #{userNm}
 			, NOW()
 		)
 	</insert>
@@ -65,7 +65,7 @@
 	
 	<delete id="deleteCrud" parameterType="egovframework.let.crud.service.CrudVO">
 		DELETE FROM LETCRUD 
-		WHERE CRUD_ID = 'CRUD_x0001'
+		WHERE CRUD_ID = #{crudId}
 	</delete>
 	
 	
