@@ -7,10 +7,10 @@ import egovframework.com.cmm.ComDefaultVO;
 public class CrudVO extends ComDefaultVO implements Serializable{
 	
 	// CRUD ID
-	private String crudID;
+	private String crudId;
 	
 	// 제목
-	private String crudsj;
+	private String crudSj;
 	
 	// 내용
 	private String crudCn;
@@ -22,20 +22,20 @@ public class CrudVO extends ComDefaultVO implements Serializable{
 	private java.util.Date frstRegistPnttm;
 
 	// getter & setter (Alt + Shift + S , R)
-	public String getCrudID() {
-		return crudID;
+	public String getCrudSj() {
+		return crudSj;
 	}
 
-	public void setCrudID(String crudID) {
-		this.crudID = crudID;
+	public String getCrudId() {
+		return crudId;
 	}
 
-	public String getCrudsj() {
-		return crudsj;
+	public void setCrudId(String crudId) {
+		this.crudId = crudId;
 	}
 
-	public void setCrudsj(String crudsj) {
-		this.crudsj = crudsj;
+	public void setCrudSj(String crudSj) {
+		this.crudSj = crudSj;
 	}
 
 	public String getCrudCn() {
