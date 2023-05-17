@@ -6,7 +6,7 @@ import egovframework.let.board.service.BoardVO;
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
 
-@Mapper("BoardMapper")
+@Mapper("boardMapper")
 public interface BoardMapper {
 	
 	// 게시물 목록 가져오기
