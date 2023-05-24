@@ -14,4 +14,13 @@ public interface BoardMapper {
 	
 	// 게시물 목록 수
 	int selectBoardListCnt(BoardVO vo) throws Exception;
+	
+	// 게시물 등록
+	void insertBoard(BoardVO vo) throws Exception;
+	
+	// 게시물 상세정보
+	BoardVO selectBoard(BoardVO vo) throws Exception;
+	
+	// 조회수 업
+	void updateViewCnt(BoardVO vo) throws Exception;
 }

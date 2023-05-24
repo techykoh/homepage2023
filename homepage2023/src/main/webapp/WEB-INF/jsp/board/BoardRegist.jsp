@@ -18,7 +18,7 @@
 	
 <!-- BBS Style -->
 <link href="/asset/BBSTMP_0000000000001/style.css" rel="stylesheet">
-<!-- 공ㅌ오 Style -->
+<!-- 공통 Style -->
 <link href="/asset/LYTTMP_0000000000000/style.css" rel="stylesheet">	
 	
 <c:choose>
