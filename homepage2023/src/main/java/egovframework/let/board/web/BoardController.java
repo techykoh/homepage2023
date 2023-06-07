@@ -1,6 +1,7 @@
 package egovframework.let.board.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovFileMngService;
+import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.board.service.BoardService;
 import egovframework.let.board.service.BoardVO;
@@ -96,7 +99,7 @@ public class BoardController {
 	
 	// 게시물 등록하기
 	@RequestMapping(value = "/board/insert.do")
-	public String insert(/*final MultipartHttpServletRequest multiRequest,*/ @ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, 
+	public String insert(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, 
 			ModelMap model) throws Exception {
 		// 이중 서브밋 방지 체크
 		if(request.getSession().getAttribute("sessionBoard") != null) {
@@ -107,6 +110,16 @@ public class BoardController {
 			model.addAttribute("message", "로그인 후 사용가능합니다.");
 			return "forward:/board/selectList.do";
 		}
+		
+		List<FileVO> result = null;
+		String atchFileId = "";
+		
+		final Map<String, MultipartFile> files = multiRequest.getFileMap();
+		if(!files.isEmpty()) {
+			result = fileUtil.parseFileInf(files, "BOARD_", 0, "", "board.fileStorePath");
+			atchFileId = fileMngService.insertFileInfs(result);
+		}
+		searchVO.setAtchFileId(atchFileId);
 		
 		searchVO.setCreatIp(request.getRemoteAddr());
 		searchVO.setUserId(user.getId());
@@ -139,7 +152,7 @@ public class BoardController {
 	
 	// 게시물 수정하기
 	@RequestMapping(value = "/board/update.do")
-	public String update(@ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, ModelMap model) throws Exception {
+	public String update(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BoardVO searchVO, HttpServletRequest request, ModelMap model) throws Exception {
 		// 이중 서브밋 방지
 		if(request.getSession().getAttribute("sessionBoard") != null) {
 			return "forward:/board/selectList.do";
@@ -151,6 +164,22 @@ public class BoardController {
 			return "forward:/board/selectList.do";
 		}else if("admin".equals(user.getId())) {
 			searchVO.setMngAt("Y");
+		}
+		
+		String atchFileId = searchVO.getAtchFileId();
+		final Map<String, MultipartFile> files = multiRequest.getFileMap();
+		if(!files.isEmpty()) {
+			if(EgovStringUtil.isEmpty(atchFileId)) {
+				List<FileVO> result = fileUtil.parseFileInf(files, "BOARD_", 0, "", "board.fileStorePath");
+				atchFileId = fileMngService.insertFileInfs(result);
+				searchVO.setAtchFileId(atchFileId);
+			}else {
+				FileVO fvo = new FileVO();
+				fvo.setAtchFileId(atchFileId);
+				int cnt = fileMngService.getMaxFileSN(fvo);
+				List<FileVO> _result = fileUtil.parseFileInf(files, "BOARD_", cnt, atchFileId, "board.fileStorePath");
+				fileMngService.updateFileInfs(_result);
+			}
 		}
 		
 		searchVO.setUserId(user.getId());
