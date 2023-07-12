@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>    
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>    
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,25 +16,29 @@
 </head>
 <body>
 
-<div class="tit_intro_step">
-	<ul>
-		<li>약관동의</li>
-		<li>회원유형</li>
-		<li>정보입력</li>
-		<li class="current">가입완료</li>
-	</ul>
-</div>
+<h2 class="icon1">아이디찾기</h2>
+<p class="mB20">아래의 사용자 확인 방법 중 하나를 선택하여 회원가입 시 등록한 정보를 입력해주세요.</p>
 
-<h2 class="icon1">가입완료</h2>
-<p class="mB40">회원가입이 완료되었습니다. 감사합니다.</p>
-
-<div class="join_finish">
-	<p>"회원가입이 완료되었습니다.<em>로그인 후</em> 사용해 주시기 바랍니다."</p>
-	<div class="btn_c">
-		<a href="/login/login.do" class="btn-lg spot">로그인</a>
-		<a href="/cmm/main/mainPage.do" class="btn-lg">메인으로</a>
+<div class="bg-area">
+	<p class="bg-txt">
+		<c:out value="${result.userNm}"/> 님의 아이디는 <em><c:out value="${result.emplyrId}"/></em>입니다.<br />
+	</p>
+	<div class="btn-cont">
+		<a href="/member/findPassword.do" class="btn spot btn_chpw">비밀번호 찾기</a>
+		<a href="/login/login.do" class="btn">로그인</a>
 	</div>
 </div>
 
+<script>
+function checkForm(){
+	if(!$("#UserNm").val()){
+		aleart("회원명을 입력해주세요.");
+		return false;
+	} else if(!$("#passwordCnsr").val()){
+		alert("비밀번호 정답을 입력해주세요.");
+		return false;
+	}
+}
+</script>
 </body>
 </html>
